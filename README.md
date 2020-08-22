@@ -6,7 +6,7 @@
   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;[条件]@<span style="color:green;">Page</span>@ 分支页名称@<br>
   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;[条件]#行为1,行为2,行为3#<br>
 }<br>
-<span style="color:green;">Page</span>@@分支页名称@{<br>
+<span style="color:green;">Page</span>@分支页名称@{<br>
   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;分支页正文<br>
 }<br>
 
