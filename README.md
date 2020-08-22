@@ -1,14 +1,16 @@
 # LittleTextGame
 简单的文字冒险游戏，游戏文件放在exe目录的data文件夹下<br>
 游戏文件格式：<br>
-Page@页名@{<br>
-&nbsp游戏正文...<br>
-&nbsp[条件]@Page 分支页名称@<br>
-&nbsp[条件]#行为1,行为2,行为3#<br>
+<span style="text-indent:2em;">正文</span> <br>
+<span style="color:green;">Page</span>@页名@{<br>
+ &nbsp;游戏正文...<br>
+ [条件]@<span style="color:green;">Page</span>@ 分支页名称@<br>
+ [条件]#行为1,行为2,行为3#<br>
 }<br>
-Page@分支页名称@{<br>
-  分支页正文<br>
+<span style="color:green;">Page</span>@@分支页名称@{<br>
+ 分支页正文<br>
 }<br>
+
 其中，条件格式为\[(条件1)(条件2)(子条件1,子条件2)\]<br>
 一个行为或一个分支只有在前面的条件满足时才会触发<br>
 中括号为空，则后接的分支或行为语句为无条件执行<br>
