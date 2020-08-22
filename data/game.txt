@@ -1,0 +1,86 @@
+//文件首的注释
+/非注释
+/非注释
+Page@init_p@{
+	旅程开始……
+	[i+]#atk=3#
+	[i+]#def=2#
+	[i+]#gold=6#
+	[i+]#life=10#
+	[i]#temp_life=0#
+	[i]#temp_atk=0#
+	[i]#temp_def=0#
+	[i]#temp_var1=0#
+	[i]#temp_var2=0#
+	[i]#temp_var3=0#
+	[i]#temp_var4=0#
+	[i]#std_sc=100#
+	[i]#std_sl=250#
+	[w]#pronoun=你#
+	[]#SET_SC std_sc,SET_SL std_sl#
+	[]@Page first_p@
+}
+Page@first_p@{
+	眼前出现了两个岔路口
+	A.走左边
+	B.走右边
+	[(input=A)]@Page left_1@
+	[(input=B)]@Page right_1@
+}
+Page@left_1@{
+	岔路口后是一个令人生畏的影子
+	遭遇了怪物：牛头人
+	A.战斗
+	B.逃跑
+	[(input=A)]@Page battle_ntr_1@
+	[(input=A)]#temp_life=10#
+	[(input=A)]#temp_atk=4#//注释2
+	[(input=A)]#temp_def=1#//注释1
+	[(input=A)]#OUT 牛头人：,OUT_R 1#
+	[(input=A)]#OUT 攻击力：,OUT temp_atk,OUT_SP 4,OUT 防御力：,OUT temp_def,OUT_SP 4,OUT 生命值,OUT temp_life#
+	[(input=B)]@Page first_p@
+}
+Page@普通战斗@{
+	
+}
+Page@battle_ntr_1@{
+	[]#SET_SC 30,SET_SL 100#
+	[(temp_life=0)(life=0)]#SET_SC std_sc,SET_SL std_sl#
+	[(temp_life=0,life!=0)]@Page 道路1@
+	[(temp_life=0,life!=0)]#gold+3,OUT 你获得了击杀奖励3金币#
+	[(life=0)]@Page 战斗死亡@
+	[(temp_life!=0,life!=0)]@Page battle_ntr_1@
+	[(temp_life!=0,life!=0)]#temp_var1=atk,temp_var2=temp_atk#
+	[(temp_life!=0,life!=0)]#temp_var1-temp_def,temp_var2-def#
+	[(temp_life!=0,life!=0)]#temp_life-temp_var1,OUT pronoun,OUT 攻击了牛头人，造成了,OUT temp_var1,OUT 点伤害，牛头人的剩余生命值为,OUT temp_life,OUT 点,OUT_R 1,OUT_SP 8#
+	[(temp_life!=0,life!=0)]#life-temp_var2,OUT 牛头人发起了攻击，造成了,OUT temp_var2,OUT 点伤害，,OUT pronoun,OUT 的剩余生命值为,OUT life,OUT 点,OUT_R 1#
+}
+Page@right_1@{
+	糟糕，你掉进了陷阱，真是危险啊，但也没什么办法就是了……
+}
+Page@道路1@{
+	A.打开商店	B.继续向前
+	[(input=test)]#gold+1#
+	[(input=A)]@Page Shop_Page@
+	[(input=B)]@Page 终点@
+}
+Page@终点@{
+	终点到了
+}
+Page@战斗死亡@{
+	哎呀，你光荣地牺牲在了战斗之中呢……
+}
+Page@Shop_Page@{
+		商	店
+	可花费金币购买攻击力或防御力
+	A.花费3金币购买1攻击力
+	B.花费2金币购买1防御力
+	C.花费1金币回复1生命值
+	R.返回上一页
+	[(input=test)]#gold+1#
+	[(input=A,gold>=3)]#gold-3,atk+1#
+	[(input=B,gold>=2)]#gold-2,def+1#
+	[(input=C,gold>=1)]#gold-1,life+1#
+	[(input=A,gold>=3)(input=B,gold>=2)(input=C,gold>=1)]#RET,OUT 金币不足#
+	[(input=R)]#RET#
+}	
